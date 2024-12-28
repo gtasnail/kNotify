@@ -1,4 +1,20 @@
 function Notification(action, data)
+
+    local str = data.message
+	local pos = str:find('~')
+	while pos do
+		local tempString = string.sub(str, pos+2, pos+2)
+		if tempString == "~" then
+			local str1 = string.sub(str, 1, pos-1)
+			local str2 = string.sub(str, pos+3)
+			str = str1..str2
+			pos = str:find('~')
+		else
+			pos = nil
+		end
+	end
+    data.message = str
+
     SendNUIMessage({
         action = action,
         data = data
